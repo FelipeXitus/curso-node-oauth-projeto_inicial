@@ -1,0 +1,7 @@
+{
+    "workbench.editor.enablePreviewFromCodeNavigation": true,
+    "workbench.editor.enablePreviewFromQuickOpen": true,
+    "gitlens.views.fileExplorer.ignored.enabled": true,
+    "gitlens.views.fileExplorer.ignored.dim": true
+
+}
