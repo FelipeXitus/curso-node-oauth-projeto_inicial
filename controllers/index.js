@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 
+
 exports.showIndex = (req, res, next) => {
     res.render('index')
 }
@@ -27,6 +28,7 @@ exports.loginUser = async (req, res, next) => {
     try {
         const user = await User.findOne(email, password);
         if (user) {
+            req.session.user = user;
             res.redirect('/members');
         } else {
             res.status(401)
@@ -38,8 +40,22 @@ exports.loginUser = async (req, res, next) => {
     }
 }
 
+exports.logoutUser = (req, res, next) => {
+    req.session.destroy((err) => {
+        if (err) {
+            return next(err);
+        }
+        res.redirect('/');
+    });
+}
+
 exports.showMembersPage = (req, res) => {
     res.render('members')
+}
+
+exports.githubCallback = (req, res) => {
+    req.session.user = req.user;
+    res.redirect('/members');
 }
 
 exports.get404Page = (req, res, next) => {
